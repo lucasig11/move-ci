@@ -8,19 +8,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-     - uses: actions/checkout@master
-     - name: Checkout move repo
+     - name: Checkout repo
+       uses: actions/checkout@master
+
+     - name: Checkout move-language repo
        uses: actions/checkout@master
        with:
         repository: move-language/move
         path: ./move
 
-     - name: Setup
+     - name: Setup environment
        run: |
-         cd move
-         ./scripts/dev_setup.sh -ybpt
-         source ~/.profile
-         cargo install --path language/tools/move-cli
+         ./move/scripts/dev_setup.sh -ybpt
+         cargo install --path ./move/language/tools/move-cli
 
      - name: Build
        run: move build
